@@ -1,15 +1,25 @@
 import json
+import pytest
 
 from app import app
 from models import db, Plant
 
 class TestPlant:
-    '''Flask application in app.py'''
+    @pytest.fixture(autouse=True)
+    def setup(self):
+        with app.app_context():
+            # Set up any necessary fixtures before the tests
+
+            # Yield the fixture object if needed
+
+            # Clean up any fixtures after the tests
+            yield
+
+            # Clean up after the tests
 
     def test_plants_get_route(self):
-        '''has a resource available at "/plants".'''
         response = app.test_client().get('/plants')
-        assert(response.status_code == 200)
+        assert response.status_code == 200
 
     def test_plants_get_route_returns_list_of_plant_objects(self):
         '''returns JSON representing Plant objects at "/plants".'''
